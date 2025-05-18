@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from st_aggrid import AgGrid, GridOptionsBuilder
 
 # Judul
 st.title("Dashboard Klasifikasi Berita Pergerakan GDP Indonesia")
@@ -16,31 +17,7 @@ data = pd.read_csv("dataset.csv")
 # Menampilkan data berita
 st.subheader("Data Berita Terkini")
 cols_to_show = ['title', 'publish_date', 'sector_label', 'composite_label']
-
-def set_col_width(df, widths):
-    styles = []
-    for i, col in enumerate(df.columns):
-        width = widths.get(col, 150)  # default 150px jika kolom tidak dispesifikkan
-        styles.append({
-            'selector': f'th.col{i}',
-            'props': [('min-width', f'{width}px'), ('max-width', f'{width}px')]
-        })
-        styles.append({
-            'selector': f'td.col{i}',
-            'props': [('min-width', f'{width}px'), ('max-width', f'{width}px')]
-        })
-    return df.style.set_table_styles(styles)
-
-widths = {
-    'title': 2,
-    'publish_date': 1,
-    'sector_label': 1,
-    'composite_label': 1,
-}
-
-styled_df = set_col_width(data[cols_to_show], widths)
-st.dataframe(styled_df)
-
+st.dataframe(data[cols_to_show])
 
 
 # Pilihan untuk memilih kategori pergerakan GDP
