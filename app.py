@@ -19,6 +19,7 @@ st.subheader("Data Berita Terkini")
 cols_to_show = ['title', 'publish_date', 'sector_label', 'pdb_label']
 #st.dataframe(data[cols_to_show])
 
+data['prediction_label'] = data['prediction'].map({1: 'Naik', -1: 'Turun'}).fillna('Tidak diketahui')
 
 # Buat grid options untuk atur lebar kolom
 gb = GridOptionsBuilder.from_dataframe(data[cols_to_show])
@@ -29,6 +30,20 @@ gb.configure_column("title", width=3, header_name="Judul Berita")
 gb.configure_column("publish_date", width=1, header_name="Tanggal")
 gb.configure_column("sector_label", width=1, header_name="Kategori")
 gb.configure_column("pdb_label", width=1, header_name="Prediksi")
+
+# Tambahkan conditional formatting pada kolom 'prediction_label'
+cellsytle_jscode = """
+function(params) {
+    if (params.value == 'Naik') {
+        return {'color': 'white', 'backgroundColor': 'green'};
+    } else if (params.value == 'Turun') {
+        return {'color': 'white', 'backgroundColor': 'red'};
+    } else {
+        return {'color': 'black'};
+    }
+};
+"""
+gb.configure_column("prediction_label", cellStyle=cellsytle_jscode)
 grid_options = gb.build()
 
 # Tampilkan AgGrid
