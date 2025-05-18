@@ -17,7 +17,7 @@ data = pd.read_csv("dataset.csv")
 # Menampilkan data berita
 st.subheader("Data Berita Terkini")
 # Pilihan untuk memilih kategori pergerakan GDP
-gdp_category = st.selectbox("Pilih Kategori GDP:", ["Quarter-to-Quarter", "Year-on-Year" , "Cumulative", "Not Specified"])
+# gdp_category = st.selectbox("Pilih Kategori GDP:", ["Quarter-to-Quarter", "Year-on-Year" , "Cumulative", "Not Specified"])
 
 # Filter data berdasarkan kategori
 sector_label = st.selectbox("Pilih Sektor Industri:", options=data['sector_label'].dropna().unique())
