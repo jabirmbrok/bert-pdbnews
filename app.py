@@ -21,7 +21,7 @@ st.dataframe(data)
 gdp_category = st.selectbox("Pilih Kategori GDP:", ["Not Specified", "Year-on-Year", "Quarter-to-Quarter", "Cumulative"])
 
 # Filter data berdasarkan kategori
-filtered_data = data[data["Category"] == gdp_category]
+filtered_data = data[data["sector_label"] == gdp_category]
 st.write(f"Menampilkan berita dengan kategori: {gdp_category}")
 st.dataframe(filtered_data)
 
