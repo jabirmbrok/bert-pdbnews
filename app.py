@@ -53,10 +53,10 @@ def colored_metric(label, value, color):
     </div>
     """, unsafe_allow_html=True)
 with col1:
-    colored_metric("Akurasi", "88%", "#4CAF50")  # hijau
+    colored_metric("Akurasi", "73%", "#FF9800")
 with col2:
-    colored_metric("Precision", "85%", "#2196F3")  # biru
+    colored_metric("Precision", "80%", "#4CAF50")
 with col3:
-    colored_metric("Recall", "80%", "#FF9800")  # oranye
+    colored_metric("Recall", "75%", "#FF9800")
 with col4:
-    colored_metric("F1-Score", "82%", "#9C27B0")  # ungu
+    colored_metric("F1-Score", "82%", "#2196F3")
