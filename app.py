@@ -3,6 +3,11 @@ import pandas as pd
 from st_aggrid import AgGrid, GridOptionsBuilder
 
 st.title("Dashboard Klasifikasi Berita Pergerakan GDP Indonesia")
+# Deskripsi
+st.write("""
+    Sistem ini mengklasifikasikan berita ekonomi untuk mendeteksi pergerakan GDP Indonesia. 
+    Pengguna dapat melihat hasil klasifikasi pergerakan GDP berdasarkan sektor industri.
+""")
 
 data = pd.read_csv("dataset.csv")
 data['pdb_label'] = data['pdb_label'].map({1: 'Naik', -1: 'Turun'}).fillna('Tidak diketahui')
@@ -36,6 +41,7 @@ grid_options = gb.build()
 AgGrid(data1, gridOptions=grid_options, height=400)
 
 st.subheader("Hasil Klasifikasi")
+st.markdown("#### Dengan Model Indolem") 
 col1, col2, col3, col4 = st.columns(4)
 # Fungsi untuk buat teks berwarna
 def colored_metric(label, value, color):
