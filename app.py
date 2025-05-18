@@ -25,10 +25,10 @@ gb = GridOptionsBuilder.from_dataframe(data[cols_to_show])
 gb.configure_default_column(editable=False, groupable=False)
 
 # Contoh atur lebar kolom spesifik (dalam pixel)
-gb.configure_column("title", width=30)
-gb.configure_column("publish_date", width=15)
-gb.configure_column("sector_label", width=15)
-gb.configure_column("composite_label", width=12)
+gb.configure_column("title", width=3)
+gb.configure_column("publish_date", width=1)
+gb.configure_column("sector_label", width=1)
+gb.configure_column("composite_label", width=1)
 grid_options = gb.build()
 
 # Tampilkan AgGrid
