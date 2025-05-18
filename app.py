@@ -19,7 +19,7 @@ st.subheader("Data Berita Terkini")
 cols_to_show = ['title', 'publish_date', 'sector_label', 'pdb_label']
 #st.dataframe(data[cols_to_show])
 
-data['prediction_label'] = data['prediction'].map({1: 'Naik', -1: 'Turun'}).fillna('Tidak diketahui')
+data['pdb_label'] = data['pdb_label'].map({1: 'Naik', -1: 'Turun'}).fillna('Tidak diketahui')
 
 # Buat grid options untuk atur lebar kolom
 gb = GridOptionsBuilder.from_dataframe(data[cols_to_show])
