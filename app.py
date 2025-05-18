@@ -11,7 +11,7 @@ st.write("""
 """)
 
 # Memuat dan menampilkan data berita yang sudah diproses
-data = pd.read_csv("data/scraped_data.csv")
+data = pd.read_csv("dataset.csv")
 
 # Menampilkan data berita
 st.subheader("Data Berita Terkini")
