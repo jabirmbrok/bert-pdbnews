@@ -56,9 +56,9 @@ gb.configure_column("pdb_label", cellStyle=cell_style_jscode)
 
 grid_options = gb.build()
 
-data = filtered_data[cols_to_show].reset_index(drop=True)
+data1 = filtered_data[cols_to_show].reset_index(drop=True)
 # Tampilkan AgGrid
-AgGrid(data, gridOptions=grid_options, height=400)
+AgGrid(data1, gridOptions=grid_options, height=400)
 
 
 # Menampilkan statistik klasifikasi
