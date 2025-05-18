@@ -16,7 +16,7 @@ data = pd.read_csv("dataset.csv")
 
 # Menampilkan data berita
 st.subheader("Data Berita Terkini")
-#cols_to_show = ['title', 'publish_date', 'sector_label', 'composite_label']
+cols_to_show = ['title', 'publish_date', 'sector_label', 'composite_label']
 #st.dataframe(data[cols_to_show])
 
 
