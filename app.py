@@ -43,7 +43,7 @@ function(params) {
     }
 };
 """
-gb.configure_column("prediction_label", cellStyle=cellsytle_jscode)
+gb.configure_column("pdb_label", cellStyle=cellsytle_jscode)
 grid_options = gb.build()
 
 # Tampilkan AgGrid
