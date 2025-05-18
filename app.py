@@ -39,6 +39,21 @@ gb.configure_column("publish_date", width=1, header_name="Tanggal")
 gb.configure_column("sector_label", width=1, header_name="Kategori")
 gb.configure_column("pdb_label", width=1, header_name="Prediksi")
 
+# Fungsi styling warna cell dengan JavaScript
+cell_style_jscode = """
+function(params) {
+    if (params.value == 'Naik') {
+        return {'color': 'white', 'backgroundColor': 'green'};
+    } else if (params.value == 'Turun') {
+        return {'color': 'white', 'backgroundColor': 'red'};
+    } else {
+        return null;
+    }
+}
+"""
+
+gb.configure_column("pdb_label", cellStyle=cell_style_jscode)
+
 grid_options = gb.build()
 
 # Tampilkan AgGrid
