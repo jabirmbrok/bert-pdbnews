@@ -41,3 +41,22 @@ col1.metric("Akurasi", "88%")
 col2.metric("Precision", "85%")
 col3.metric("Recall", "80%")
 col4.metric("F1-Score", "82%")
+
+st.subheader("Hasil Klasifikasi")
+col1, col2, col3, col4 = st.columns(4)
+# Fungsi untuk buat teks berwarna
+def colored_metric(label, value, color):
+    st.markdown(f"""
+    <div style="padding: 10px; border-radius: 5px; background-color: {color}; color: white; text-align: center;">
+        <h4>{label}</h4>
+        <p style="font-size: 24px; font-weight: bold; margin: 0;">{value}</p>
+    </div>
+    """, unsafe_allow_html=True)
+with col1:
+    colored_metric("Akurasi", "88%", "#4CAF50")  # hijau
+with col2:
+    colored_metric("Precision", "85%", "#2196F3")  # biru
+with col3:
+    colored_metric("Recall", "80%", "#FF9800")  # oranye
+with col4:
+    colored_metric("F1-Score", "82%", "#9C27B0")  # ungu
