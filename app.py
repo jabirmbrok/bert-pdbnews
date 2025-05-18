@@ -32,7 +32,7 @@ gb.configure_column("composite_label", width=120)
 grid_options = gb.build()
 
 # Tampilkan AgGrid
-AgGrid(filtered_data, gridOptions=grid_options, height=400)
+AgGrid(data[cols_to_show], gridOptions=grid_options, height=400)
 
 # Pilihan untuk memilih kategori pergerakan GDP
 gdp_category = st.selectbox("Pilih Kategori GDP:", ["Not Specified", "Year-on-Year", "Quarter-to-Quarter", "Cumulative"])
