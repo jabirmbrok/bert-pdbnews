@@ -16,7 +16,6 @@ data = pd.read_csv("dataset.csv")
 # Menampilkan data berita
 st.subheader("Data Berita Terkini")
 cols_to_show = ['title', 'publish_date', 'sector_label', 'composite_label']
-st.dataframe(data[cols_to_show], height=300)
 
 def set_col_width(df, widths):
     styles = []
@@ -33,11 +32,10 @@ def set_col_width(df, widths):
     return df.style.set_table_styles(styles)
 
 widths = {
-    'title': 100,
-    'publish_date': 120,
-    'sector_label': 150,
-    'category': 120,
-    'prediction': 100
+    'title': 20,
+    'publish_date': 12,
+    'sector_label': 15,
+    'composite_label': 12,
 }
 
 styled_df = set_col_width(data[cols_to_show], widths)
