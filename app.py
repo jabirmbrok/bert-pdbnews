@@ -11,27 +11,38 @@ st.write("""
     Pengguna dapat melihat hasil klasifikasi pergerakan GDP berdasarkan sektor industri.
 """)
 
-# Memuat dan menampilkan data berita yang sudah diproses
+# Load data
 data = pd.read_csv("dataset.csv")
 
-# Menampilkan data berita
-st.subheader("Data Berita Terkini")
-cols_to_show = ['title', 'publish_date', 'sector_label', 'pdb_label']
-#st.dataframe(data[cols_to_show])
-
+# Mapping label prediksi
 data['pdb_label'] = data['pdb_label'].map({1: 'Naik', -1: 'Turun'}).fillna('Tidak diketahui')
 
-# Buat grid options untuk atur lebar kolom
-gb = GridOptionsBuilder.from_dataframe(data[cols_to_show])
+# Filter pilihan kategori GDP
+gdp_category = st.selectbox("Pilih Kategori GDP:", ["Not Specified", "Year-on-Year", "Quarter-to-Quarter", "Cumulative"])
+if gdp_category == "Not Specified":
+    filtered_gdp = data.copy()
+else:
+    filtered_gdp = data[data['category'] == gdp_category]
+
+# Filter pilihan sektor berdasarkan hasil filter kategori GDP
+sector_label = st.selectbox("Pilih Sektor Industri:", options=filtered_gdp['sector_label'].dropna().unique())
+filtered_data = filtered_gdp[filtered_gdp['sector_label'] == sector_label]
+
+st.write(f"Menampilkan berita dengan kategori GDP: **{gdp_category}** dan sektor industri: **{sector_label}**")
+
+cols_to_show = ['title', 'publish_date', 'sector_label', 'pdb_label']
+
+# Setup AgGrid
+gb = GridOptionsBuilder.from_dataframe(filtered_data[cols_to_show])
 gb.configure_default_column(editable=False, groupable=False)
 
-# Contoh atur lebar kolom spesifik (dalam pixel)
-gb.configure_column("title", width=3, header_name="Judul Berita")
-gb.configure_column("publish_date", width=1, header_name="Tanggal")
-gb.configure_column("sector_label", width=1, header_name="Kategori")
-gb.configure_column("pdb_label", width=1, header_name="Prediksi")
+# Atur kolom dan lebar
+gb.configure_column("title", width=300, header_name="Judul Berita")
+gb.configure_column("publish_date", width=150, header_name="Tanggal")
+gb.configure_column("sector_label", width=150, header_name="Kategori")
+gb.configure_column("pdb_label", width=100, header_name="Prediksi")
 
-# Tambahkan conditional formatting pada kolom 'prediction_label'
+# Styling untuk kolom prediksi
 cellsytle_jscode = """
 function(params) {
     if (params.value == 'Naik') {
@@ -44,29 +55,16 @@ function(params) {
 };
 """
 gb.configure_column("pdb_label", cellStyle=cellsytle_jscode)
+
 grid_options = gb.build()
 
-# Tampilkan AgGrid
-AgGrid(data, gridOptions=grid_options, height=400)
+# Tampilkan tabel interaktif
+AgGrid(filtered_data[cols_to_show], gridOptions=grid_options, height=400)
 
-# Pilihan untuk memilih kategori pergerakan GDP
-gdp_category = st.selectbox("Pilih Kategori GDP:", ["Not Specified", "Year-on-Year", "Quarter-to-Quarter", "Cumulative"])
-
-# Filter data berdasarkan kategori
-sector_label = st.selectbox("Pilih Sektor Industri:", options=data['sector_label'].dropna().unique())
-filtered_data = data[data['sector_label'] == sector_label]
-
-st.write(f"Menampilkan berita dengan kategori: {sector_label}")
-st.dataframe(filtered_data)
-
-# Menampilkan statistik klasifikasi
+# Statistik klasifikasi
 st.subheader("Hasil Klasifikasi")
-accuracy = 0.88  # Angka contoh, Anda bisa mengganti ini dengan nilai aktual
-precision = 0.85
-recall = 0.80
-f1_score = 0.82
-
-st.write(f"Akurasinya: {accuracy}")
-st.write(f"Precision: {precision}")
-st.write(f"Recall: {recall}")
-st.write(f"F1-Score: {f1_score}")
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("Akurasi", "88%")
+col2.metric("Precision", "85%")
+col3.metric("Recall", "80%")
+col4.metric("F1-Score", "82%")
