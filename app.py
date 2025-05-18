@@ -18,11 +18,11 @@ st.subheader("Data Berita Terkini")
 st.dataframe(data)
 
 # Pilihan untuk memilih kategori pergerakan GDP
-gdp_category = st.selectbox("Pilih Kategori GDP:", ["Not Specified", "Year-on-Year", "Quarter-to-Quarter", "Cumulative"])
+#gdp_category = st.selectbox("Pilih Kategori GDP:", ["Not Specified", "Year-on-Year", "Quarter-to-Quarter", "Cumulative"])
 
 # Filter data berdasarkan kategori
-sector_label = st.selectbox("Pilih Sektor Industri:", options=data['sector_label'].unique())
-filtered_data = data[data["sector_label"] == sector_label]
+sector_label = st.selectbox("Pilih Sektor Industri:", options=data['sector_label'].dropna().unique())
+filtered_data = data[data['sector_label'] == sector_label]
 
 st.write(f"Menampilkan berita dengan kategori: {sector_label}")
 st.dataframe(filtered_data)
