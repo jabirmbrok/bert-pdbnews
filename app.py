@@ -15,10 +15,13 @@ data = pd.read_csv("dataset.csv")
 
 # Menampilkan data berita
 st.subheader("Data Berita Terkini")
-st.dataframe(data)
+cols_to_show = ['title', 'publish_date', 'sector_label', 'composite_label']
+st.dataframe(data[cols_to_show], height=300)
+
+
 
 # Pilihan untuk memilih kategori pergerakan GDP
-#gdp_category = st.selectbox("Pilih Kategori GDP:", ["Not Specified", "Year-on-Year", "Quarter-to-Quarter", "Cumulative"])
+gdp_category = st.selectbox("Pilih Kategori GDP:", ["Not Specified", "Year-on-Year", "Quarter-to-Quarter", "Cumulative"])
 
 # Filter data berdasarkan kategori
 sector_label = st.selectbox("Pilih Sektor Industri:", options=data['sector_label'].dropna().unique())
