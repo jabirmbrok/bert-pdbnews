@@ -20,6 +20,20 @@ cols_to_show = ['title', 'publish_date', 'sector_label', 'composite_label']
 st.dataframe(data[cols_to_show])
 
 
+# Buat grid options untuk atur lebar kolom
+gb = GridOptionsBuilder.from_dataframe(data[cols_to_show])
+gb.configure_default_column(editable=False, groupable=False)
+
+# Contoh atur lebar kolom spesifik (dalam pixel)
+gb.configure_column("title", width=300)
+gb.configure_column("publish_date", width=150)
+gb.configure_column("sector_label", width=150)
+gb.configure_column("composite_label", width=120)
+grid_options = gb.build()
+
+# Tampilkan AgGrid
+AgGrid(filtered_data, gridOptions=grid_options, height=400)
+
 # Pilihan untuk memilih kategori pergerakan GDP
 gdp_category = st.selectbox("Pilih Kategori GDP:", ["Not Specified", "Year-on-Year", "Quarter-to-Quarter", "Cumulative"])
 
