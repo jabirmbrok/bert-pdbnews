@@ -29,7 +29,7 @@ st.write(f"Menampilkan berita dengan kategori: {sector_label}")
 cols_to_show = ['title', 'publish_date', 'sector_label', 'pdb_label']
 #st.dataframe(data[cols_to_show])
 
-data['pdb_label'] = data['pdb_label'].map({1: 'Naik', -1: 'Turun'}).fillna('Tidak diketahui')
+filtered_data['pdb_label'] = filtered_data['pdb_label'].map({1: 'Naik', -1: 'Turun'}).fillna('Tidak diketahui')
 gb = GridOptionsBuilder.from_dataframe(filtered_data[cols_to_show])
 gb.configure_default_column(editable=False, groupable=False)
 
@@ -58,17 +58,17 @@ st.write(f"Recall: {recall}")
 st.write(f"F1-Score: {f1_score}")
 
 # Buat grid options untuk atur lebar kolom
-gb = GridOptionsBuilder.from_dataframe(data[cols_to_show])
-gb.configure_default_column(editable=False, groupable=False)
+#gb = GridOptionsBuilder.from_dataframe(data[cols_to_show])
+#gb.configure_default_column(editable=False, groupable=False)
 
 # Contoh atur lebar kolom spesifik (dalam pixel)
-gb.configure_column("title", width=3, header_name="Judul Berita")
-gb.configure_column("publish_date", width=1, header_name="Tanggal")
-gb.configure_column("sector_label", width=1, header_name="Kategori")
-gb.configure_column("pdb_label", width=1, header_name="Prediksi")
+#gb.configure_column("title", width=3, header_name="Judul Berita")
+#gb.configure_column("publish_date", width=1, header_name="Tanggal")
+#gb.configure_column("sector_label", width=1, header_name="Kategori")
+#gb.configure_column("pdb_label", width=1, header_name="Prediksi")
 
-grid_options = gb.build()
+#grid_options = gb.build()
 
 # Tampilkan AgGrid
-AgGrid(data, gridOptions=grid_options, height=400)
+#AgGrid(data, gridOptions=grid_options, height=400)
 
