@@ -35,19 +35,6 @@ gb.configure_column("publish_date", width=150, header_name="Tanggal Terbit")
 gb.configure_column("sector_label", width=150, header_name="Sektor Industri")
 gb.configure_column("pdb_label", width=100, header_name="Prediksi")
 
-# Styling kolom prediksi dengan pewarnaan hijau untuk 'Naik' dan merah untuk 'Turun'
-cell_style_jscode = """
-function(params) {
-    if (params.value == 'Naik') {
-        return {'color': 'white', 'backgroundColor': 'green'};
-    } else if (params.value == 'Turun') {
-        return {'color': 'white', 'backgroundColor': 'red'};
-    } else {
-        return null;
-    }
-}
-"""
-gb.configure_column("pdb_label", cellStyle=cell_style_jscode)
 
 grid_options = gb.build()
 
