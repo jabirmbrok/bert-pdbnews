@@ -32,10 +32,10 @@ def set_col_width(df, widths):
     return df.style.set_table_styles(styles)
 
 widths = {
-    'title': 20,
-    'publish_date': 12,
-    'sector_label': 15,
-    'composite_label': 12,
+    'title': 2,
+    'publish_date': 1,
+    'sector_label': 1,
+    'composite_label': 1,
 }
 
 styled_df = set_col_width(data[cols_to_show], widths)
