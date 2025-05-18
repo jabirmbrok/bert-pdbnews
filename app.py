@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from st_aggrid import AgGrid
+from st_aggrid import AgGrid, GridOptionsBuilder
 
 # Judul
 st.title("Dashboard Klasifikasi Berita Pergerakan GDP Indonesia")
@@ -11,34 +11,49 @@ st.write("""
     Pengguna dapat melihat hasil klasifikasi pergerakan GDP berdasarkan sektor industri.
 """)
 
-# Load data
+# Memuat dan menampilkan data berita yang sudah diproses
 data = pd.read_csv("dataset.csv")
 
-# Map label prediksi
+# Menampilkan data berita
+st.subheader("Data Berita Terkini")
+cols_to_show = ['title', 'publish_date', 'sector_label', 'pdb_label']
+#st.dataframe(data[cols_to_show])
+
 data['pdb_label'] = data['pdb_label'].map({1: 'Naik', -1: 'Turun'}).fillna('Tidak diketahui')
 
-# Filter kategori GDP
+# Buat grid options untuk atur lebar kolom
+gb = GridOptionsBuilder.from_dataframe(data[cols_to_show])
+gb.configure_default_column(editable=False, groupable=False)
+
+# Contoh atur lebar kolom spesifik (dalam pixel)
+gb.configure_column("title", width=3, header_name="Judul Berita")
+gb.configure_column("publish_date", width=1, header_name="Tanggal")
+gb.configure_column("sector_label", width=1, header_name="Kategori")
+gb.configure_column("pdb_label", width=1, header_name="Prediksi")
+
+grid_options = gb.build()
+
+# Tampilkan AgGrid
+AgGrid(data, gridOptions=grid_options, height=400)
+
+# Pilihan untuk memilih kategori pergerakan GDP
 gdp_category = st.selectbox("Pilih Kategori GDP:", ["Not Specified", "Year-on-Year", "Quarter-to-Quarter", "Cumulative"])
-if gdp_category == "Not Specified":
-    filtered_gdp = data.copy()
-else:
-    filtered_gdp = data[data['category'] == gdp_category]
 
-# Filter sektor berdasarkan hasil filter kategori GDP
-sector_label = st.selectbox("Pilih Sektor Industri:", options=filtered_gdp['sector_label'].dropna().unique())
-filtered_data = filtered_gdp[filtered_gdp['sector_label'] == sector_label]
+# Filter data berdasarkan kategori
+sector_label = st.selectbox("Pilih Sektor Industri:", options=data['sector_label'].dropna().unique())
+filtered_data = data[data['sector_label'] == sector_label]
 
-cols_to_show = ['title', 'publish_date', 'sector_label', 'pdb_label']
-df_to_show = filtered_data[cols_to_show].copy()
-df_to_show = df_to_show.reset_index(drop=True)
+st.write(f"Menampilkan berita dengan kategori: {sector_label}")
+st.dataframe(filtered_data)
 
-# Tampilkan AgGrid tanpa konfigurasi styling kompleks dulu
-AgGrid(df_to_show, height=400)
-
-# Statistik klasifikasi (contoh nilai)
+# Menampilkan statistik klasifikasi
 st.subheader("Hasil Klasifikasi")
-col1, col2, col3, col4 = st.columns(4)
-col1.metric("Akurasi", "88%")
-col2.metric("Precision", "85%")
-col3.metric("Recall", "80%")
-col4.metric("F1-Score", "82%")
+accuracy = 0.88  # Angka contoh, Anda bisa mengganti ini dengan nilai aktual
+precision = 0.85
+recall = 0.80
+f1_score = 0.82
+
+st.write(f"Akurasinya: {accuracy}")
+st.write(f"Precision: {precision}")
+st.write(f"Recall: {recall}")
+st.write(f"F1-Score: {f1_score}")
