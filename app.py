@@ -12,8 +12,10 @@ st.write("""
 data = pd.read_csv("dataset.csv")
 data['pdb_label'] = data['pdb_label'].map({1: 'Naik', -1: 'Turun'}).fillna('Tidak diketahui')
 
+st.subheader("Data Berita Terkini")
 sector_label = st.selectbox("Pilih Sektor Industri:", options=data['sector_label'].dropna().unique())
 filtered_data = data[data['sector_label'] == sector_label].copy()
+st.write(f"Menampilkan berita dengan kategori: {sector_label}")
 
 def label_with_color(x):
     if x == 'Naik':
