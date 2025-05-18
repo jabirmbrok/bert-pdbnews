@@ -24,7 +24,7 @@ sector_label = st.selectbox("Pilih Sektor Industri:", options=data['sector_label
 filtered_data = data[data['sector_label'] == sector_label]
 
 st.write(f"Menampilkan berita dengan kategori: {sector_label}")
-st.dataframe(filtered_data)
+#st.dataframe(filtered_data)
 
 cols_to_show = ['title', 'publish_date', 'sector_label', 'pdb_label']
 #st.dataframe(data[cols_to_show])
