@@ -17,7 +17,7 @@ data = pd.read_csv("dataset.csv")
 # Menampilkan data berita
 st.subheader("Data Berita Terkini")
 # Pilihan untuk memilih kategori pergerakan GDP
-gdp_category = st.selectbox("Pilih Kategori GDP:", ["Not Specified", "Year-on-Year", "Quarter-to-Quarter", "Cumulative"])
+gdp_category = st.selectbox("Pilih Kategori GDP:", ["Quarter-to-Quarter", "Year-on-Year" , "Cumulative", "Not Specified"])
 
 # Filter data berdasarkan kategori
 sector_label = st.selectbox("Pilih Sektor Industri:", options=data['sector_label'].dropna().unique())
@@ -30,7 +30,7 @@ cols_to_show = ['title', 'publish_date', 'sector_label', 'pdb_label']
 #st.dataframe(data[cols_to_show])
 
 data['pdb_label'] = data['pdb_label'].map({1: 'Naik', -1: 'Turun'}).fillna('Tidak diketahui')
-gb = GridOptionsBuilder.from_dataframe(filtered_data)
+gb = GridOptionsBuilder.from_dataframe(filtered_data[cols_to_show])
 gb.configure_default_column(editable=False, groupable=False)
 
 # Contoh atur lebar kolom spesifik (dalam pixel)
@@ -42,7 +42,7 @@ gb.configure_column("pdb_label", width=1, header_name="Prediksi")
 grid_options = gb.build()
 
 # Tampilkan AgGrid
-AgGrid(filtered_data, gridOptions=grid_options, height=400)
+AgGrid(filtered_data[cols_to_show], gridOptions=grid_options, height=400)
 
 
 # Menampilkan statistik klasifikasi
