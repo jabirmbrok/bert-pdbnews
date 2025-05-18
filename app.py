@@ -2,12 +2,17 @@ import streamlit as st
 import pandas as pd
 from st_aggrid import AgGrid, GridOptionsBuilder
 
-st.title("Dashboard Klasifikasi Berita Pergerakan GDP Indonesia")
-# Deskripsi
-st.write("""
-    Sistem ini mengklasifikasikan berita ekonomi untuk mendeteksi pergerakan GDP Indonesia. 
-    Pengguna dapat melihat hasil klasifikasi pergerakan GDP berdasarkan sektor industri.
-""")
+# Judul rata tengah
+st.markdown(
+    "<h1 style='text-align: center;'>Dashboard Klasifikasi Berita Pergerakan GDP Indonesia</h1>",
+    unsafe_allow_html=True
+)
+
+# Deskripsi rata tengah
+st.markdown(
+    "<p style='text-align: center;'>Sistem ini mengklasifikasikan berita ekonomi untuk mendeteksi pergerakan GDP Indonesia. Pengguna dapat melihat hasil klasifikasi pergerakan GDP berdasarkan sektor industri.</p>",
+    unsafe_allow_html=True
+)
 
 data = pd.read_csv("dataset.csv")
 data['pdb_label'] = data['pdb_label'].map({1: 'Naik', -1: 'Turun'}).fillna('Tidak diketahui')
