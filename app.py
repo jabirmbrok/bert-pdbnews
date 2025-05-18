@@ -10,30 +10,26 @@ data['pdb_label'] = data['pdb_label'].map({1: 'Naik', -1: 'Turun'}).fillna('Tida
 sector_label = st.selectbox("Pilih Sektor Industri:", options=data['sector_label'].dropna().unique())
 filtered_data = data[data['sector_label'] == sector_label].copy()
 
-cols_to_show = ['title', 'publish_date', 'sector_label', 'pdb_label']
+def label_with_color(x):
+    if x == 'Naik':
+        return "🟢 Naik"
+    elif x == 'Turun':
+        return "🔴 Turun"
+    else:
+        return x
+
+filtered_data['pdb_label_color'] = filtered_data['pdb_label'].apply(label_with_color)
+
+cols_to_show = ['title', 'publish_date', 'sector_label', 'pdb_label_color']
 data1 = filtered_data[cols_to_show].copy()
 data1.reset_index(drop=True, inplace=True)
 
 gb = GridOptionsBuilder.from_dataframe(data1)
 gb.configure_default_column(editable=False, groupable=False)
-
 gb.configure_column("title", width=300, header_name="Judul Berita")
 gb.configure_column("publish_date", width=150, header_name="Tanggal Terbit")
 gb.configure_column("sector_label", width=150, header_name="Sektor Industri")
-
-# Pakai cellRenderer untuk warna dinamis
-cell_renderer_js = """
-function(params) {
-    if (params.value == 'Naik') {
-        return '<span style="background-color:green;color:white;padding:4px;border-radius:4px;">' + params.value + '</span>';
-    } else if (params.value == 'Turun') {
-        return '<span style="background-color:red;color:white;padding:4px;border-radius:4px;">' + params.value + '</span>';
-    } else {
-        return params.value;
-    }
-}
-"""
-gb.configure_column("pdb_label", width=100, header_name="Prediksi", cellRenderer=cell_renderer_js)
+gb.configure_column("pdb_label_color", width=120, header_name="Prediksi")
 
 grid_options = gb.build()
 
