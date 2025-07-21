@@ -18,7 +18,7 @@ data = pd.read_csv("dataset.csv")
 data['pdb_label'] = data['pdb_label'].map({1: 'Naik', -1: 'Turun'}).fillna('Tidak diketahui')
 
 st.subheader("Data Berita Terkini")
-sector_label = st.selectbox("Pilih Kategori Lapangan:", options=data['sector_label'].dropna().unique())
+sector_label = st.selectbox("Pilih Kategori Lapangan Usaha:", options=data['sector_label'].dropna().unique())
 filtered_data = data[data['sector_label'] == sector_label].copy()
 st.write(f"Menampilkan berita dengan kategori: {sector_label}")
 
