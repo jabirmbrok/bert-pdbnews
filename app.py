@@ -47,6 +47,30 @@ grid_options = gb.build()
 
 AgGrid(data1, gridOptions=grid_options, height=400)
 
+def colored_metric(label, value, bg_color, text_color):
+    st.markdown(f"""
+    <div style="
+        padding: 10px; 
+        border-radius: 5px; 
+        background-color: {bg_color}; 
+        color: {text_color}; 
+        text-align: center;
+        ">
+        <h4 style="margin-bottom:5px;">{label}</h4>
+        <p style="font-size: 24px; font-weight: bold; margin: 0;">{value}</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col1:
+    colored_metric("Akurasi", "73%", "#FF9800", "white")   # Orange bg, white teks
+with col2:
+    colored_metric("Presisi", "80%", "#4CAF50", "white")   # Hijau bg, white teks
+with col3:
+    colored_metric("Recall", "75%", "#FFFF00", "black")    # Kuning cerah bg, teks hitam supaya jelas
+with col4:
+    colored_metric("F1-Score", "82%", "#2196F3", "white") 
+
+
 st.subheader("Hasil Klasifikasi")
 st.markdown("#### Dengan Model Indolem") 
 col1, col2, col3, col4 = st.columns(4)
