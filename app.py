@@ -18,7 +18,7 @@ data = pd.read_csv("dataset.csv")
 data['pdb_label'] = data['pdb_label'].map({1: 'Naik', -1: 'Turun'}).fillna('Tidak diketahui')
 
 st.subheader("Data Berita Terkini")
-sector_label = st.selectbox("Pilih Sektor Industri:", options=data['sector_label'].dropna().unique())
+sector_label = st.selectbox("Pilih Kategori Lapangan:", options=data['sector_label'].dropna().unique())
 filtered_data = data[data['sector_label'] == sector_label].copy()
 st.write(f"Menampilkan berita dengan kategori: {sector_label}")
 
@@ -63,6 +63,6 @@ with col1:
 with col2:
     colored_metric("Presisi", "80%", "#4CAF50")
 with col3:
-    colored_metric("Recall", "75%", "#FF9800")
+    colored_metric("Recall", "75%", "##FFFF00")
 with col4:
     colored_metric("F1-Score", "82%", "#2196F3")
