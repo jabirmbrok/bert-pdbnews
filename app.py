@@ -10,7 +10,7 @@ st.markdown(
 
 # Deskripsi rata tengah
 st.markdown(
-    "<p style='text-align: center;'>Sistem ini mengklasifikasikan berita ekonomi untuk mendeteksi pergerakan PDB Indonesia. Pengguna dapat melihat hasil klasifikasi pergerakan GDP berdasarkan sektor industri.</p>",
+    "<p style='text-align: center;'>Sistem ini mengklasifikasikan berita ekonomi untuk mendeteksi pergerakan PDB Indonesia. Pengguna dapat melihat hasil klasifikasi pergerakan PDB berdasarkan sektor industri atau lapangan usaha.</p>",
     unsafe_allow_html=True
 )
 
