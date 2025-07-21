@@ -63,6 +63,6 @@ with col1:
 with col2:
     colored_metric("Presisi", "80%", "#4CAF50")
 with col3:
-    colored_metric("Recall", "75%", "#FFFF00")
+    colored_metric("Recall", "75%", "#FFFFE0")
 with col4:
     colored_metric("F1-Score", "82%", "#2196F3")
